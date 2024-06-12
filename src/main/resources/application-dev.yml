@@ -1,0 +1,21 @@
+# 生产环境
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lilemy_answer
+    username: root
+    password: 123456
+  # Redis 配置
+  data:
+    redis:
+      database: 5
+      host: localhost
+      port: 6379
+      timeout: 5000
+cos:
+  client:
+    access-key: xx
+    secret-key: xx
+    bucket: xx
+    region: xx
