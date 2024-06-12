@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @author qq233
+ * @author lilemy
  * @description 针对表【user(用户)】的数据库操作Service
  * @createDate 2024-06-12 11:21:11
  */
@@ -73,7 +73,7 @@ public interface UserService extends IService<User> {
      * 获取脱敏登录用户信息
      *
      * @param user 用户
-     * @return 登录用户 - 脱敏
+     * @return 脱敏登录用户信息
      */
     LoginUserVO getLoginUserVO(User user);
 
@@ -81,9 +81,17 @@ public interface UserService extends IService<User> {
      * 获取脱敏用户信息
      *
      * @param user 用户
-     * @return 用户 - 脱敏
+     * @return 脱敏用户信息
      */
     UserVO getUserVO(User user);
+
+    /**
+     * 获取脱敏用户信息
+     *
+     * @param userId 用户id
+     * @return 脱敏用户信息
+     */
+    UserVO getUserVO(Long userId);
 
     /**
      * 获取脱敏的用户信息
@@ -97,7 +105,7 @@ public interface UserService extends IService<User> {
      * 获取查询条件
      *
      * @param userQueryRequest 查询请求体
-     * @return 查询Wrapper
+     * @return 查询 Wrapper
      */
     Wrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
 }

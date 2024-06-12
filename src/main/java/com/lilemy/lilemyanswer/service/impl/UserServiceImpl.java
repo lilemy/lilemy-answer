@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author qq233
+ * @author lilemy
  * @description 针对表【user(用户)】的数据库操作Service实现
  * @createDate 2024-06-12 11:21:11
  */
@@ -166,6 +166,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         BeanUtils.copyProperties(user, userVO);
         return userVO;
     }
+
+    @Override
+    public UserVO getUserVO(Long userId) {
+        User user = null;
+        if (userId != null && userId > 0) {
+            user = this.getById(userId);
+        }
+        return this.getUserVO(user);
+    }
+
 
     @Override
     public List<UserVO> getUserVO(List<User> userList) {

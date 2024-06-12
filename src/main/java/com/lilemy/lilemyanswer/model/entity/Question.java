@@ -8,12 +8,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 用户
- * @TableName user
+ * 题目
+ * @TableName question
  */
-@TableName(value ="user")
+@TableName(value ="question")
 @Data
-public class User implements Serializable {
+public class Question implements Serializable {
     /**
      * id
      */
@@ -21,44 +21,19 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 账号
+     * 题目内容（json格式）
      */
-    private String userAccount;
+    private String questionContent;
 
     /**
-     * 密码
+     * 应用 id
      */
-    private String userPassword;
+    private Long appId;
 
     /**
-     * 微信开放平台id
+     * 创建用户 id
      */
-    private String unionId;
-
-    /**
-     * 公众号openId
-     */
-    private String mpOpenId;
-
-    /**
-     * 用户昵称
-     */
-    private String userName;
-
-    /**
-     * 用户头像
-     */
-    private String userAvatar;
-
-    /**
-     * 用户简介
-     */
-    private String userProfile;
-
-    /**
-     * 用户角色：user/admin/ban
-     */
-    private String userRole;
+    private Long userId;
 
     /**
      * 创建时间

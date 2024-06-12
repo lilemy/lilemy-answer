@@ -30,7 +30,7 @@ import static com.lilemy.lilemyanswer.service.impl.UserServiceImpl.SALT;
 
 @Slf4j
 @RestController
-@Tag(name = "user")
+@Tag(name = "用户接口")
 @RequestMapping("/user")
 public class UserController {
 

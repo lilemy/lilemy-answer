@@ -8,12 +8,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 用户
- * @TableName user
+ * 应用
+ * @TableName app
  */
-@TableName(value ="user")
+@TableName(value ="app")
 @Data
-public class User implements Serializable {
+public class App implements Serializable {
     /**
      * id
      */
@@ -21,44 +21,54 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 账号
+     * 应用名
      */
-    private String userAccount;
+    private String appName;
 
     /**
-     * 密码
+     * 应用描述
      */
-    private String userPassword;
+    private String appDesc;
 
     /**
-     * 微信开放平台id
+     * 应用图标
      */
-    private String unionId;
+    private String appIcon;
 
     /**
-     * 公众号openId
+     * 应用类型（0-得分类，1-测评类）
      */
-    private String mpOpenId;
+    private Integer appType;
 
     /**
-     * 用户昵称
+     * 评分策略（0-自定义，1-AI）
      */
-    private String userName;
+    private Integer scoringStrategy;
 
     /**
-     * 用户头像
+     * 审核状态：0-待审核, 1-通过, 2-拒绝
      */
-    private String userAvatar;
+    private Integer reviewStatus;
 
     /**
-     * 用户简介
+     * 审核信息
      */
-    private String userProfile;
+    private String reviewMessage;
 
     /**
-     * 用户角色：user/admin/ban
+     * 审核人 id
      */
-    private String userRole;
+    private Long reviewerId;
+
+    /**
+     * 审核时间
+     */
+    private Date reviewTime;
+
+    /**
+     * 创建用户 id
+     */
+    private Long userId;
 
     /**
      * 创建时间

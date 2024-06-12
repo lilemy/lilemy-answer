@@ -8,12 +8,12 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 用户
- * @TableName user
+ * 评分结果
+ * @TableName scoring_result
  */
-@TableName(value ="user")
+@TableName(value ="scoring_result")
 @Data
-public class User implements Serializable {
+public class ScoringResult implements Serializable {
     /**
      * id
      */
@@ -21,44 +21,39 @@ public class User implements Serializable {
     private Long id;
 
     /**
-     * 账号
+     * 结果名称，如物流师
      */
-    private String userAccount;
+    private String resultName;
 
     /**
-     * 密码
+     * 结果描述
      */
-    private String userPassword;
+    private String resultDesc;
 
     /**
-     * 微信开放平台id
+     * 结果图片
      */
-    private String unionId;
+    private String resultPicture;
 
     /**
-     * 公众号openId
+     * 结果属性集合 JSON，如 [I,S,T,J]
      */
-    private String mpOpenId;
+    private String resultProp;
 
     /**
-     * 用户昵称
+     * 结果得分范围，如 80，表示 80及以上的分数命中此结果
      */
-    private String userName;
+    private Integer resultScoreRange;
 
     /**
-     * 用户头像
+     * 应用 id
      */
-    private String userAvatar;
+    private Long appId;
 
     /**
-     * 用户简介
+     * 创建用户 id
      */
-    private String userProfile;
-
-    /**
-     * 用户角色：user/admin/ban
-     */
-    private String userRole;
+    private Long userId;
 
     /**
      * 创建时间
