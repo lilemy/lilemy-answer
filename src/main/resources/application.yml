@@ -8,11 +8,16 @@ spring:
   servlet:
     multipart:
       max-file-size: 10MB
+  session:
+    redis:
+      save-mode: always
+    timeout: 2592000
 server:
   address: 0.0.0.0
-  port: 8101
+  port: 9126
   servlet:
     context-path: /api
     session:
       cookie:
         max-age: 2592000
+        same-site: none

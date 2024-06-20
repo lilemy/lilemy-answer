@@ -10,10 +10,12 @@ import com.lilemy.lilemyanswer.common.ResultUtils;
 import com.lilemy.lilemyanswer.constant.UserConstant;
 import com.lilemy.lilemyanswer.exception.BusinessException;
 import com.lilemy.lilemyanswer.exception.ThrowUtils;
+import com.lilemy.lilemyanswer.model.dto.ai.AIGenerateQuestionRequest;
 import com.lilemy.lilemyanswer.model.dto.question.*;
 import com.lilemy.lilemyanswer.model.entity.Question;
 import com.lilemy.lilemyanswer.model.entity.User;
 import com.lilemy.lilemyanswer.model.vo.question.QuestionVO;
+import com.lilemy.lilemyanswer.service.AIService;
 import com.lilemy.lilemyanswer.service.QuestionService;
 import com.lilemy.lilemyanswer.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "题目接口")
+@Tag(name = "QuestionController")
 @RequestMapping("/question")
 public class QuestionController {
 
@@ -35,6 +37,9 @@ public class QuestionController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private AIService aiService;
 
     // region 增删改查
 
@@ -45,7 +50,7 @@ public class QuestionController {
         // 在此处将实体类和 DTO 进行转换
         Question question = new Question();
         BeanUtils.copyProperties(questionAddRequest, question);
-        List<QuestionContentDTO> questionContentDTO = questionAddRequest.getQuestionContent();
+        List<QuestionContentRequest> questionContentDTO = questionAddRequest.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContentDTO));
         // 数据校验
         questionService.validQuestion(question, true);
@@ -88,7 +93,7 @@ public class QuestionController {
         // 在此处将实体类和 DTO 进行转换
         Question question = new Question();
         BeanUtils.copyProperties(questionUpdateRequest, question);
-        List<QuestionContentDTO> questionContentDTO = questionUpdateRequest.getQuestionContent();
+        List<QuestionContentRequest> questionContentDTO = questionUpdateRequest.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContentDTO));
         // 数据校验
         questionService.validQuestion(question, false);
@@ -156,7 +161,7 @@ public class QuestionController {
         // 在此处将实体类和 DTO 进行转换
         Question question = new Question();
         BeanUtils.copyProperties(questionEditRequest, question);
-        List<QuestionContentDTO> questionContentDTO = questionEditRequest.getQuestionContent();
+        List<QuestionContentRequest> questionContentDTO = questionEditRequest.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContentDTO));
         // 数据校验
         questionService.validQuestion(question, false);
@@ -170,4 +175,13 @@ public class QuestionController {
     }
 
     // endregion
+
+    @Operation(summary = "ai 生成应用题目")
+    @PostMapping("/ai_generate")
+    public BaseResponse<List<QuestionContentRequest>> aiGenerateQuestion(
+            @RequestBody AIGenerateQuestionRequest aiGenerateQuestionRequest) {
+        ThrowUtils.throwIf(aiGenerateQuestionRequest == null, ResultCode.PARAMS_ERROR);
+        List<QuestionContentRequest> questionContentDTOS = aiService.aiGenerateQuestion(aiGenerateQuestionRequest);
+        return ResultUtils.success(questionContentDTOS);
+    }
 }

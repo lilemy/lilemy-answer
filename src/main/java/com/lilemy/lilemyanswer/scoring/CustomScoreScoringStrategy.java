@@ -2,7 +2,8 @@ package com.lilemy.lilemyanswer.scoring;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.lilemy.lilemyanswer.model.dto.question.QuestionContentDTO;
+import com.lilemy.lilemyanswer.constant.AppConstant;
+import com.lilemy.lilemyanswer.model.dto.question.QuestionContentRequest;
 import com.lilemy.lilemyanswer.model.entity.App;
 import com.lilemy.lilemyanswer.model.entity.Question;
 import com.lilemy.lilemyanswer.model.entity.ScoringResult;
@@ -18,7 +19,7 @@ import java.util.Optional;
 /**
  * 自定义打分类应用评分策略
  */
-@ScoringStrategyConfig(appType = 0, scoringStrategy = 0)
+@ScoringStrategyConfig(appType = AppConstant.APP_TYPE_SCORE, scoringStrategy = AppConstant.APP_SCORING_CUSTOM)
 public class CustomScoreScoringStrategy implements ScoringStrategy {
 
     @Resource
@@ -43,17 +44,17 @@ public class CustomScoreScoringStrategy implements ScoringStrategy {
         // 2. 统计用户的总得分
         int totalScore = 0;
         QuestionVO questionVO = QuestionVO.objToVo(question);
-        List<QuestionContentDTO> questionContent = questionVO.getQuestionContent();
+        List<QuestionContentRequest> questionContent = questionVO.getQuestionContent();
 
         // 遍历题目列表
         for (int i = 0; i < questionContent.size(); i++) {
-            QuestionContentDTO questionContentDTO = questionContent.get(i);
+            QuestionContentRequest questionContentDTO = questionContent.get(i);
             if (i >= choices.size()) {
                 break;
             }
             String answer = choices.get(i);
             // 遍历题目中的选项
-            for (QuestionContentDTO.Option option : questionContentDTO.getOptions()) {
+            for (QuestionContentRequest.Option option : questionContentDTO.getOptions()) {
                 // 如果答案和选项的key匹配
                 if (option.getKey().equals(answer)) {
                     int score = Optional.of(option.getScore()).orElse(0);

@@ -3,9 +3,11 @@ package com.lilemy.lilemyanswer.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lilemy.lilemyanswer.annotation.AuthCheck;
 import com.lilemy.lilemyanswer.common.BaseResponse;
+import com.lilemy.lilemyanswer.common.DeleteRequest;
 import com.lilemy.lilemyanswer.common.ResultCode;
 import com.lilemy.lilemyanswer.common.ResultUtils;
 import com.lilemy.lilemyanswer.constant.UserConstant;
+import com.lilemy.lilemyanswer.exception.BusinessException;
 import com.lilemy.lilemyanswer.exception.ThrowUtils;
 import com.lilemy.lilemyanswer.model.dto.useranswer.UserAnswerAddRequest;
 import com.lilemy.lilemyanswer.model.dto.useranswer.UserAnswerQueryRequest;
@@ -21,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Tag(name = "用户答案接口")
+@Tag(name = "UserAnswerController")
 @RequestMapping("/userAnswer")
 public class UserAnswerController {
 
@@ -37,6 +39,27 @@ public class UserAnswerController {
         ThrowUtils.throwIf(userAnswerAddRequest == null, ResultCode.PARAMS_ERROR);
         Long newUserAnswerId = userAnswerService.createUserAnswer(userAnswerAddRequest, request);
         return ResultUtils.success(newUserAnswerId);
+    }
+
+    @Operation(summary = "删除用户答案")
+    @PostMapping("/delete")
+    public BaseResponse<Boolean> deleteUserAnswer(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
+        if (deleteRequest == null || deleteRequest.getId() <= 0) {
+            throw new BusinessException(ResultCode.PARAMS_ERROR);
+        }
+        User user = userService.getLoginUser(request);
+        long id = deleteRequest.getId();
+        // 判断是否存在
+        UserAnswer oldUserAnswer = userAnswerService.getById(id);
+        ThrowUtils.throwIf(oldUserAnswer == null, ResultCode.NOT_FOUND_ERROR);
+        // 仅本人或管理员可删除
+        if (!oldUserAnswer.getUserId().equals(user.getId()) && !userService.isAdmin(request)) {
+            throw new BusinessException(ResultCode.NO_AUTH_ERROR);
+        }
+        // 操作数据库
+        boolean result = userAnswerService.removeById(id);
+        ThrowUtils.throwIf(!result, ResultCode.OPERATION_ERROR);
+        return ResultUtils.success(true);
     }
 
     @Operation(summary = "根据 id 获取用户答案（封装类）")

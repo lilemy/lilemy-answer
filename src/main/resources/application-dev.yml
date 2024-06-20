@@ -13,9 +13,14 @@ spring:
       host: localhost
       port: 6379
       timeout: 5000
+# 腾讯云对象存储配置
 cos:
   client:
     access-key: xx
     secret-key: xx
     bucket: xx
     region: xx
+# AI 配置
+ai:
+  client:
+    apiKey: xx

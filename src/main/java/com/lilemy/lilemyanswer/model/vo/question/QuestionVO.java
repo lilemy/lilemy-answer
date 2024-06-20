@@ -1,7 +1,7 @@
 package com.lilemy.lilemyanswer.model.vo.question;
 
 import cn.hutool.json.JSONUtil;
-import com.lilemy.lilemyanswer.model.dto.question.QuestionContentDTO;
+import com.lilemy.lilemyanswer.model.dto.question.QuestionContentRequest;
 import com.lilemy.lilemyanswer.model.entity.Question;
 import com.lilemy.lilemyanswer.model.vo.user.UserVO;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class QuestionVO implements Serializable {
     /**
      * 题目内容（json格式）
      */
-    private List<QuestionContentDTO> questionContent;
+    private List<QuestionContentRequest> questionContent;
 
     /**
      * 应用 id
@@ -66,7 +66,7 @@ public class QuestionVO implements Serializable {
         }
         Question question = new Question();
         BeanUtils.copyProperties(questionVO, question);
-        List<QuestionContentDTO> questionContentDTO = questionVO.getQuestionContent();
+        List<QuestionContentRequest> questionContentDTO = questionVO.getQuestionContent();
         question.setQuestionContent(JSONUtil.toJsonStr(questionContentDTO));
         return question;
     }
@@ -85,7 +85,7 @@ public class QuestionVO implements Serializable {
         BeanUtils.copyProperties(question, questionVO);
         String questionContent = question.getQuestionContent();
         if (questionContent != null) {
-            questionVO.setQuestionContent(JSONUtil.toList(questionContent, QuestionContentDTO.class));
+            questionVO.setQuestionContent(JSONUtil.toList(questionContent, QuestionContentRequest.class));
         }
         return questionVO;
     }

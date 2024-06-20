@@ -1,4 +1,4 @@
-package com.lilemy.lilemyanswer.util;
+package com.lilemy.lilemyanswer.manager;
 
 import com.lilemy.lilemyanswer.config.CosClientConfig;
 import com.qcloud.cos.COSClient;
@@ -13,7 +13,7 @@ import java.io.File;
  * Cos 对象存储
  */
 @Component
-public class CosUtil {
+public class CosManager {
 
     @Resource
     private CosClientConfig cosClientConfig;

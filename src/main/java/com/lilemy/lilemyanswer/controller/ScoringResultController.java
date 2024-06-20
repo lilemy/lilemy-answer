@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@Tag(name = "评分结果接口")
+@Tag(name = "ScoringResultController")
 @RequestMapping("/scoringResult")
 public class ScoringResultController {
 

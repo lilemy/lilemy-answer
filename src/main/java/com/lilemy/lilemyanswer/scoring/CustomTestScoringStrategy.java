@@ -2,7 +2,8 @@ package com.lilemy.lilemyanswer.scoring;
 
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.lilemy.lilemyanswer.model.dto.question.QuestionContentDTO;
+import com.lilemy.lilemyanswer.constant.AppConstant;
+import com.lilemy.lilemyanswer.model.dto.question.QuestionContentRequest;
 import com.lilemy.lilemyanswer.model.entity.App;
 import com.lilemy.lilemyanswer.model.entity.Question;
 import com.lilemy.lilemyanswer.model.entity.ScoringResult;
@@ -19,7 +20,7 @@ import java.util.Map;
 /**
  * 自定义测评类应用评分策略
  */
-@ScoringStrategyConfig(appType = 1, scoringStrategy = 0)
+@ScoringStrategyConfig(appType = AppConstant.APP_TYPE_TEST, scoringStrategy = AppConstant.APP_SCORING_CUSTOM)
 public class CustomTestScoringStrategy implements ScoringStrategy {
 
     @Resource
@@ -45,14 +46,14 @@ public class CustomTestScoringStrategy implements ScoringStrategy {
         Map<String, Integer> optionCount = new HashMap<>();
 
         QuestionVO questionVO = QuestionVO.objToVo(question);
-        List<QuestionContentDTO> questionContent = questionVO.getQuestionContent();
+        List<QuestionContentRequest> questionContent = questionVO.getQuestionContent();
 
         // 遍历题目列表
-        for (QuestionContentDTO questionContentDTO : questionContent) {
+        for (QuestionContentRequest questionContentDTO : questionContent) {
             // 遍历答案列表
             for (String answer : choices) {
                 // 遍历题目中的选项
-                for (QuestionContentDTO.Option option : questionContentDTO.getOptions()) {
+                for (QuestionContentRequest.Option option : questionContentDTO.getOptions()) {
                     // 如果答案和选项的key匹配
                     if (option.getKey().equals(answer)) {
                         // 获取选项的result属性

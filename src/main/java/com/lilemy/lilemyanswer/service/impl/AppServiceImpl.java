@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lilemy.lilemyanswer.common.ResultCode;
+import com.lilemy.lilemyanswer.constant.AppConstant;
 import com.lilemy.lilemyanswer.constant.CommonConstant;
 import com.lilemy.lilemyanswer.exception.BusinessException;
 import com.lilemy.lilemyanswer.exception.ThrowUtils;
@@ -64,6 +65,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App>
             ThrowUtils.throwIf(scoringStrategyEnum == null, ResultCode.PARAMS_ERROR, "应用评分策略非法");
         }
         // 修改数据时，有参数则校验
+        ThrowUtils.throwIf(appType == AppConstant.APP_TYPE_SCORE && scoringStrategy == AppConstant.APP_SCORING_AI, ResultCode.PARAMS_ERROR, "得分类应用暂不支持 AI 评分");
         if (StringUtils.isNotBlank(appName)) {
             ThrowUtils.throwIf(appName.length() > 80, ResultCode.PARAMS_ERROR, "应用名称要小于 80");
         }

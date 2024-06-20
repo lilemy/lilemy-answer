@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@Tag(name = "应用接口")
+@Tag(name = "AppController")
 @RequestMapping("/app")
 public class AppController {
 
@@ -55,7 +55,7 @@ public class AppController {
         boolean result = appService.save(app);
         ThrowUtils.throwIf(!result, ResultCode.OPERATION_ERROR);
         // 返回新写入的数据 id
-        long newAppId = app.getId();
+        Long newAppId = app.getId();
         return ResultUtils.success(newAppId);
     }
 
@@ -97,7 +97,7 @@ public class AppController {
 
     @Operation(summary = "根据 id 获取应用（封装类）")
     @GetMapping("/get/vo")
-    public BaseResponse<AppVO> getAppVOById(long id, HttpServletRequest request) {
+    public BaseResponse<AppVO> getAppVOById(Long id, HttpServletRequest request) {
         ThrowUtils.throwIf(id <= 0, ResultCode.PARAMS_ERROR);
         // 查询数据库
         App app = appService.getById(id);

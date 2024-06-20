@@ -14,7 +14,7 @@ import com.lilemy.lilemyanswer.model.dto.file.UploadFileRequest;
 import com.lilemy.lilemyanswer.model.entity.User;
 import com.lilemy.lilemyanswer.model.enums.FileUploadBizEnum;
 import com.lilemy.lilemyanswer.service.UserService;
-import com.lilemy.lilemyanswer.util.CosUtil;
+import com.lilemy.lilemyanswer.manager.CosManager;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -30,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @RestController
-@Tag(name = "文件接口")
+@Tag(name = "FileController")
 @RequestMapping("/file")
 public class FileController {
 
@@ -38,7 +38,7 @@ public class FileController {
     private UserService userService;
 
     @Resource
-    private CosUtil cosUtil;
+    private CosManager cosUtil;
 
     @Operation(summary = "文件上传")
     @PostMapping("/upload")

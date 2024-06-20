@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionContentDTO {
+public class QuestionContentRequest {
 
     /**
      * 题目标题
