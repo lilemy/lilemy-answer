@@ -24,6 +24,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
 
@@ -183,5 +184,12 @@ public class QuestionController {
         ThrowUtils.throwIf(aiGenerateQuestionRequest == null, ResultCode.PARAMS_ERROR);
         List<QuestionContentRequest> questionContentDTOS = aiService.aiGenerateQuestion(aiGenerateQuestionRequest);
         return ResultUtils.success(questionContentDTOS);
+    }
+
+    @Operation(summary = "ai 生成应用题目（实时）")
+    @GetMapping("/ai_generate/see")
+    public SseEmitter aiGenerateQuestionSSE(AIGenerateQuestionRequest aiGenerateQuestionRequest) {
+        ThrowUtils.throwIf(aiGenerateQuestionRequest == null, ResultCode.PARAMS_ERROR);
+        return aiService.aiGenerateQuestionSee(aiGenerateQuestionRequest);
     }
 }

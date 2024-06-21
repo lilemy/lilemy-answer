@@ -3,6 +3,7 @@ package com.lilemy.lilemyanswer.service;
 import com.lilemy.lilemyanswer.model.dto.ai.AIGenerateQuestionRequest;
 import com.lilemy.lilemyanswer.model.dto.question.QuestionContentRequest;
 import com.lilemy.lilemyanswer.model.entity.App;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
 
@@ -15,9 +16,17 @@ public interface AIService {
      * ai 应用题目生成
      *
      * @param aiGenerateQuestionRequest ai 生成题目请求体
-     * @return {@link List< QuestionContentRequest >}
+     * @return {@link List<QuestionContentRequest>}
      */
     List<QuestionContentRequest> aiGenerateQuestion(AIGenerateQuestionRequest aiGenerateQuestionRequest);
+
+    /**
+     * ai 应用题目生成（实时）
+     *
+     * @param aiGenerateQuestionRequest ai 生成题目请求体
+     * @return see 连接
+     */
+    SseEmitter aiGenerateQuestionSee(AIGenerateQuestionRequest aiGenerateQuestionRequest);
 
     /**
      * 生成题目的用户消息
@@ -38,4 +47,5 @@ public interface AIService {
      * @return 用户消息
      */
     String getAiTestScoringUserMessage(App app, List<QuestionContentRequest> questionContentDTOList, List<String> choices);
+
 }
