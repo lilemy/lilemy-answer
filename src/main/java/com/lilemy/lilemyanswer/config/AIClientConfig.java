@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "ai.client")
 @Data
-public class AiClientConfig {
+public class AIClientConfig {
 
     /**
      * apiKey

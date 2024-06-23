@@ -28,4 +28,19 @@
         result_score,user_id,create_time,
         update_time,is_delete
     </sql>
+    <select id="doAppAnswerCount"
+            resultType="com.lilemy.lilemyanswer.model.vo.statistic.AppAnswerCountVO">
+        select app_id, count(user_id) as answerCount
+        from user_answer
+        group by app_id
+        order by answerCount desc
+    </select>
+    <select id="doAppAnswerResultCount"
+            resultType="com.lilemy.lilemyanswer.model.vo.statistic.AppAnswerResultVO">
+        select result_name, count(result_name) as resultCount
+        from user_answer
+        where app_id = #{appID}
+        group by result_name
+        order by resultCount desc;
+    </select>
 </mapper>

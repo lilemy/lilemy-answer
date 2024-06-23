@@ -5,22 +5,26 @@ use lilemy_answer;
 INSERT INTO app (id, app_name, app_desc, app_icon, app_type, scoring_strategy, review_status, review_message,
                  reviewer_id,
                  review_time, user_id, create_time, update_time, is_delete)
-VALUES (1, '自定义MBTI性格测试', '测试性格', '11', 1, 0, 1, null, null, null, 1, '2024-04-24 15:58:05',
+VALUES (1, '自定义MBTI性格测试', '测试性格', 'https://qiniu.lilemy.cn/lilemy-answer/17047896054651.png', 1, 0, 1, null,
+        null, null, 1, '2024-04-24 15:58:05',
         '2024-05-09 15:09:53', 0);
 INSERT INTO app (id, app_name, app_desc, app_icon, app_type, scoring_strategy, review_status, review_message,
                  reviewer_id,
                  review_time, user_id, create_time, update_time, is_delete)
-VALUES (2, '自定义得分测试', '测试得分', '22', 0, 0, 1, null, null, null, 1, '2024-04-25 11:39:30',
+VALUES (2, '自定义得分测试', '测试得分', 'https://qiniu.lilemy.cn/lilemy-answer/17047896028491.png', 0, 0, 1, null,
+        null, null, 1, '2024-04-25 11:39:30',
         '2024-05-09 15:09:53', 0);
 INSERT INTO app (id, app_name, app_desc, app_icon, app_type, scoring_strategy, review_status, review_message,
                  reviewer_id,
                  review_time, user_id, create_time, update_time, is_delete)
-VALUES (3, 'AI MBTI 性格测试', '快来测测你的 MBTI', '11', 1, 1, 1, null, null, null, 1, '2024-04-26 16:38:12',
+VALUES (3, 'AI MBTI 性格测试', '快来测测你的 MBTI', 'https://qiniu.lilemy.cn/lilemy-answer/17047896002659.png', 1, 1, 1,
+        null, null, null, 1, '2024-04-26 16:38:12',
         '2024-05-09 15:09:53', 0);
 INSERT INTO app (id, app_name, app_desc, app_icon, app_type, scoring_strategy, review_status, review_message,
                  reviewer_id,
                  review_time, user_id, create_time, update_time, is_delete)
-VALUES (4, 'AI 得分测试', '看看你熟悉多少首都', '22', 0, 1, 1, null, null, null, 1, '2024-04-26 16:38:56',
+VALUES (4, 'AI 得分测试', '看看你熟悉多少首都', 'https://qiniu.lilemy.cn/lilemy-answer/17047895972837.png', 0, 1, 1,
+        null, null, null, 1, '2024-04-26 16:38:56',
         '2024-05-09 15:09:53', 0);
 
 -- 题目表初始数据

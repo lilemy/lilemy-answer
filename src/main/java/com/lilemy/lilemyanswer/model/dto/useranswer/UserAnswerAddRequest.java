@@ -14,6 +14,12 @@ public class UserAnswerAddRequest implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 8725050122554708194L;
+
+    /**
+     * id
+     */
+    private Long id;
+
     /**
      * 应用 id
      */

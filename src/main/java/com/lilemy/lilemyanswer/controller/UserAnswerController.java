@@ -1,5 +1,6 @@
 package com.lilemy.lilemyanswer.controller;
 
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lilemy.lilemyanswer.annotation.AuthCheck;
 import com.lilemy.lilemyanswer.common.BaseResponse;
@@ -87,8 +88,7 @@ public class UserAnswerController {
 
     @Operation(summary = "分页获取用户答案列表（封装类）")
     @PostMapping("/list/page/vo")
-    public BaseResponse<Page<UserAnswerVO>> listUserAnswerVOByPage(@RequestBody UserAnswerQueryRequest userAnswerQueryRequest,
-                                                                   HttpServletRequest request) {
+    public BaseResponse<Page<UserAnswerVO>> listUserAnswerVOByPage(@RequestBody UserAnswerQueryRequest userAnswerQueryRequest) {
         long current = userAnswerQueryRequest.getCurrent();
         long size = userAnswerQueryRequest.getPageSize();
         // 限制爬虫
@@ -97,7 +97,7 @@ public class UserAnswerController {
         Page<UserAnswer> userAnswerPage = userAnswerService.page(new Page<>(current, size),
                 userAnswerService.getQueryWrapper(userAnswerQueryRequest));
         // 获取封装类
-        return ResultUtils.success(userAnswerService.getUserAnswerVOPage(userAnswerPage, request));
+        return ResultUtils.success(userAnswerService.getUserAnswerVOPage(userAnswerPage));
     }
 
     @Operation(summary = "分页获取当前登录用户创建的用户答案列表")
@@ -108,7 +108,13 @@ public class UserAnswerController {
         // 补充查询条件，只查询当前登录用户的数据
         User loginUser = userService.getLoginUser(request);
         userAnswerQueryRequest.setUserId(loginUser.getId());
-        return listUserAnswerVOByPage(userAnswerQueryRequest, request);
+        return listUserAnswerVOByPage(userAnswerQueryRequest);
+    }
+
+    @Operation(summary = "获取答题 id")
+    @GetMapping("/generate/id")
+    public BaseResponse<Long> generateUserAnswerId() {
+        return ResultUtils.success(IdUtil.getSnowflakeNextId());
     }
 
 }

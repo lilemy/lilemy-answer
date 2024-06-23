@@ -63,17 +63,16 @@ public class UserAnswerServiceImpl extends ServiceImpl<UserAnswerMapper, UserAns
         ThrowUtils.throwIf(userAnswer == null, ResultCode.PARAMS_ERROR);
         // 从对象中取值
         Long appId = userAnswer.getAppId();
+        Long id = userAnswer.getId();
         // 创建数据时，参数不能为空
         if (add) {
             // 补充校验规则
             ThrowUtils.throwIf(appId == null || appId <= 0, ResultCode.PARAMS_ERROR, "appId 非法");
+            ThrowUtils.throwIf(id == null || id <= 0, ResultCode.PARAMS_ERROR, "id 不存在");
         }
         // 修改数据时，有参数则校验
         // 补充校验规则
-        if (appId != null) {
-            App app = appService.getById(appId);
-            ThrowUtils.throwIf(app == null, ResultCode.PARAMS_ERROR, "应用不存在");
-        }
+        ThrowUtils.throwIf(appId == null || appService.getById(appId) == null, ResultCode.PARAMS_ERROR, "应用不存在");
     }
 
     @Override
@@ -178,7 +177,7 @@ public class UserAnswerServiceImpl extends ServiceImpl<UserAnswerMapper, UserAns
     }
 
     @Override
-    public Page<UserAnswerVO> getUserAnswerVOPage(Page<UserAnswer> userAnswerPage, HttpServletRequest request) {
+    public Page<UserAnswerVO> getUserAnswerVOPage(Page<UserAnswer> userAnswerPage) {
         List<UserAnswer> userAnswerList = userAnswerPage.getRecords();
         Page<UserAnswerVO> userAnswerVOPage = new Page<>(userAnswerPage.getCurrent(), userAnswerPage.getSize(), userAnswerPage.getTotal());
         if (CollUtil.isEmpty(userAnswerList)) {
